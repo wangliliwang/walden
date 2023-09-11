@@ -21,9 +21,10 @@ func readFile(path string) string {
 }
 
 type Word struct {
-	Word    string
-	Count   int
-	Chinese string
+	Word     string
+	Count    int
+	Chinese  string
+	Phonetic string
 }
 
 func (w Word) String() string {
@@ -67,6 +68,7 @@ func statWords(text string) Words {
 		dictRecord, ok := dict.Match(word)
 		if ok {
 			w.Chinese = dictRecord.Translate
+			w.Phonetic = dictRecord.Phonetic
 		}
 		words = append(words, w)
 	}
@@ -82,9 +84,9 @@ func exportToCSV(path string, words Words) {
 	csvWriter := csv.NewWriter(fl)
 	// transform
 	records := make([][]string, len(words)+1)
-	records[0] = []string{"word", "count", "translation"}
+	records[0] = []string{"word", "phonetic", "count", "translation"}
 	for index, word := range words {
-		records[index+1] = []string{word.Word, strconv.Itoa(word.Count), word.Chinese}
+		records[index+1] = []string{word.Word, word.Phonetic, strconv.Itoa(word.Count), word.Chinese}
 	}
 
 	// write

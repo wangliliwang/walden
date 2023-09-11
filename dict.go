@@ -9,6 +9,7 @@ import (
 type Record struct {
 	Word      string
 	Translate string
+	Phonetic  string
 }
 
 type ECDict struct {
@@ -37,10 +38,11 @@ func (e *ECDict) load() {
 	}
 	e.data = make(map[string]*Record)
 	for _, record := range records {
-		word, translate := record[0], record[3]
+		word, phonetic, translate := record[0], record[1], record[3]
 		e.data[word] = &Record{
 			Word:      word,
 			Translate: translate,
+			Phonetic:  phonetic,
 		}
 	}
 }
