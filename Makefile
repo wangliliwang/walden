@@ -1,3 +1,6 @@
 
-1:
-	go run -v . --raw raw/1-ECONOMY
+clean:
+	rm -f dist/*
+
+stat: clean
+	go run -v .
