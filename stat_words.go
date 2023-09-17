@@ -39,7 +39,14 @@ func (ws Words) Len() int {
 	return len(ws)
 }
 func (ws Words) Less(i, j int) bool {
-	return ws[i].Count > ws[j].Count
+	// 词频倒序，字典序正序
+	if ws[i].Count > ws[j].Count {
+		return true
+	} else if ws[i].Count < ws[j].Count {
+		return false
+	} else {
+		return ws[i].Word < ws[j].Word
+	}
 }
 func (ws Words) Swap(i, j int) {
 	ws[i], ws[j] = ws[j], ws[i]
